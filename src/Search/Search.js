@@ -9,7 +9,7 @@ class Search extends Component {
         <div className="container">
           <h1>Find public repositories</h1>
           <Form className="gh-search-form">
-            <Input type="text" placeholder="Enter A Github Username" />
+            <Input type="text" placeholder="Enter A Github Username e.g. facebook" />
             <Button color="primary">Find</Button>
           </Form>
         </div>

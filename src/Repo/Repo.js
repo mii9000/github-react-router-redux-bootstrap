@@ -13,23 +13,23 @@ class Repo extends Component {
                 </Breadcrumb>
                 <Table hover>
                     <tbody>
-                    <tr>
-                        <th scope="row">
-                            <a href="#">cli</a>
-                        </th>
-                        <td>This repo contains the .NET Core command-line (CLI) tools...</td>
-                        <td>C#</td>
-                        <td>Updated on Nov 13</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">
-                            <a href="#">this-not-that</a>
-                        </th>
-                        <td>MongoDB Stitch Hacktoberfest</td>
-                        <td>CSS</td>
-                        <td>Updated on Oct 31</td>
-                    </tr>
-                    <tr>
+                        <tr>
+                            <th scope="row">
+                                <a href="#">cli</a>
+                            </th>
+                            <td>This repo contains the .NET Core command-line (CLI) tools...</td>
+                            <td>C#</td>
+                            <td>Updated on Nov 13</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                                <a href="#">this-not-that</a>
+                            </th>
+                            <td>MongoDB Stitch Hacktoberfest</td>
+                            <td>CSS</td>
+                            <td>Updated on Oct 31</td>
+                        </tr>
+                        <tr>
                         <th scope="row">
                             <a href="#">UmbracoDocs</a>
                         </th>

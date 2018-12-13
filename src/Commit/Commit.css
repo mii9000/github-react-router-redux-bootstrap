@@ -1,0 +1,18 @@
+.list-text {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 7px;
+}
+
+.list-text:last-child {
+	margin-bottom: 0;
+}
+
+.list-text-left {
+    flex: 1;
+    margin-right: 30px;
+}
+
+.list-text-right {
+    flex: none;
+}
