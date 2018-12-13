@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './style.css';
-import Search from './Search/Search';
-import Repo from './Repo/Repo'
+import Router from "./Router/Router";
 
-ReactDOM.render(<Repo />, document.getElementById('root'));
+ReactDOM.render(<Router />, document.getElementById('root'));
