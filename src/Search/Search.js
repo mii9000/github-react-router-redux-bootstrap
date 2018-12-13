@@ -24,7 +24,7 @@ class Search extends Component {
       <div className="gh-form-body">
         <div className="container">
           <h1>Find public repositories</h1>
-          <Form className="gh-search-form">
+          <Form className="gh-search-form" onSubmit={e => { e.preventDefault(); }}>
             <Input id="username" type="text" required placeholder="Enter A Github Username e.g. facebook" />
             <Button onClick={this._handleFindClick} color="primary">Find</Button>
           </Form>
