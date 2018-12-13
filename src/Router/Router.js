@@ -8,9 +8,12 @@ const Router = () => (
     <BrowserRouter>
         <Switch>
             <Route exact path = "/" component = {Search} />
-            <Route path = "/repositories" component = {Repo} />
-            <Route path = "/repositories/:name/commits" component = {Commit} />
-            {/* <Route component = {NotFound} /> */}
+            <Route exact path = "/:username/repositories" component = {Repo} />
+            <Route exact path = "/:username/repositories/:name/commits" component = {Commit} />
+            <Route render={() => (
+                //TODO Render a component here with not found gif
+                <div>No Have!!!</div>
+            )} />
         </Switch>
     </BrowserRouter>
 );
