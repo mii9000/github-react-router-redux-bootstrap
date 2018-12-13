@@ -1,0 +1,52 @@
+.gh-form-body {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.gh-form-body h1 {
+  font-size: 34px;
+  margin-bottom: 30px;
+  margin-top: -7px;
+}
+
+.gh-search-form {
+  position: relative;
+  max-width: 600px;
+  width: 100%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gh-search-form input {
+  border: 1px solid #ddd;
+  height: 45px;
+  border-radius: 25px;
+  padding: 7px 20px;
+  font-size: 17px;
+  flex: 1;
+  padding-left: 50px;
+  transition: all 0.4s ease;
+}
+
+.gh-search-form input:focus {
+  outline: none;
+}
+
+.gh-search-form button {
+  height: 45px;
+  border: none;
+  flex: none;
+  padding: 5px 25px 6px;
+  border-radius: 25px;
+  text-align: center;
+  font-size: 17px;
+  margin-left: 15px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
