@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { Button, Form, Input } from 'reactstrap';
 import './Search.css';
 
-class Search extends Component {
+export class Search extends Component {
 
   constructor(props){
     super(props)
