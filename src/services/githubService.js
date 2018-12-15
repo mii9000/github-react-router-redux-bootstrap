@@ -1,5 +1,5 @@
 export const getRepos = async (username) => {
-    const response = await fetch(`http://localhost:8080/${username}`)
+    const response = await fetch(`http://localhost:8080/repos`)
     return await response.json()
 } 
 
