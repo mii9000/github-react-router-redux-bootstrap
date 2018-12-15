@@ -1,6 +1,7 @@
 {
     "repos": [
       {
+        "id": 1,
         "name": "cli",
         "link": "https://localhost:8080",
         "desc": "This repo contains the .NET Core command-line (CLI) tools...",
@@ -8,6 +9,7 @@
         "date": "Updated on Nov 13"
       },
       {
+        "id": 2,
         "name": "sdf",
         "link": "https://localhost:8080",
         "desc": "This repo contains the .NET Core command-line (CLI) tools...",
@@ -15,6 +17,7 @@
         "date": "Updated on Nov 13"
       },
       {
+        "id": 3,
         "name": "345",
         "link": "https://localhost:8080",
         "desc": "This repo contains the .NET Core command-line (CLI) tools...",
