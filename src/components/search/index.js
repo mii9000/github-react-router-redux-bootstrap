@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { Button, Form, Input } from 'reactstrap'
-import './Search.css'
-import store from "../Store/store"
-import * as actions from "../Reducer/actions"
+import './index.css'
+import store from "../../state/store"
+import * as actions from "../../state/actions"
 
 export class Search extends Component {
 
   constructor(props) {
     super(props)
-    this._handleFindClick = this._handleFindClick.bind(this)
     this.state = { value: '' }
+    this._handleFindClick = this._handleFindClick.bind(this)
   }
 
   _handleFindClick(event) {

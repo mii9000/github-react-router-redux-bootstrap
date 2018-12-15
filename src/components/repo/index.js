@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Table, Breadcrumb, BreadcrumbItem } from 'reactstrap';
-import './Repo.css';
+import './index.css';
 
 class Repo extends Component {
     constructor(props){

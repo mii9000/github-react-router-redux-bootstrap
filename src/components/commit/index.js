@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Commit.css';
+import './index.css';
 import { Breadcrumb, 
     BreadcrumbItem, 
     ListGroup,

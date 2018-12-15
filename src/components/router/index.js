@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Search from "../Search/Search";
-import Repo from "../Repo/Repo";
-import Commit from "../Commit/Commit";
+import Search from "../search";
+import Repo from "../repo";
+import Commit from "../commit";
 
 const Router = () => (
     <BrowserRouter>
