@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
 import { Button, Form, Input } from 'reactstrap'
-import { browserhistory } from "react-router"
 import './index.css'
-import store from "../../state/store"
-import * as actions from "../../state/actions"
+import { setUsername, resetState } from '../../state/actionCreators'
 
 export class Search extends Component {
 
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
     this.state = { 
       value: '',
       valid: true
@@ -17,13 +15,18 @@ export class Search extends Component {
     this._handleOnChange = this._handleOnChange.bind(this)
   }
 
+  componentDidMount() {
+    resetState()
+  }
+
   _handleFindClick(event) {
-    if (this.state.value.length == 0) {
+    const username = this.state.value
+    if (username.length == 0) {
       this.setState({...this.state, valid: false})
       return;
     }
-    store.dispatch({type: actions.SELECT_USER, payload: this.state.value})
-    this.props.history.push(`/${this.state.value}/repositories`)
+    setUsername(username)
+    this.props.history.push(`/${username}/repositories`)
   }
 
   _handleOnChange(event) {
@@ -37,7 +40,7 @@ export class Search extends Component {
           <h1>Find public repositories</h1>
           <Form className="gh-search-form" onSubmit={ e => { e.preventDefault(); }}>
             <Input onChange={this._handleOnChange} 
-                   type="text" required placeholder="Enter A Github Username e.g. facebook"
+                   type="text" placeholder="Enter A Github Username e.g. facebook"
                    className={this.state.valid ? "" : "gh-error"} />
             <Button onClick={this._handleFindClick} color="primary">Find</Button>
           </Form>

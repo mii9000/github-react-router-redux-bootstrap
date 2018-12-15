@@ -1,45 +1,44 @@
 import React, { Component } from 'react'
 import { Table, Breadcrumb, BreadcrumbItem } from 'reactstrap'
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom'
+import { getRepos, showLoader } from '../../state/actionCreators'
 import './index.css'
 import Loader from '../loading'
 
 
+const RepoItem = ({link, name, desc, lang, date}) => (
+    <tr>
+        <th scope="row">
+            <a href={link}>{name}</a>
+        </th>
+        <td>{desc}</td>
+        <td>{lang}</td>
+        <td>{date}</td>
+    </tr>
+)
+
 class Repo extends Component {
 
-    constructor(){
-        super()
-        this.state = {
-            show: true
-        }
-        setTimeout(() => {
-            this.setState({
-                show: false
-            })
-        }, 2000);
+    componentDidMount(){
+        this.props.getRepos(this.props.match.params.username)
     }
 
     render() {
         return (
             <div>               
-                { this.state.show ? <Loader /> : null }
+                { this.props.showLoading ? <Loader /> : null }
                 <div className="gh-table-body">
                     <div className="container">
                         <Breadcrumb>
                             <BreadcrumbItem>
-                                <a href="/">{this.props.match.params.username}</a>
+                                <Link to='/'><strong>&larr;</strong></Link>
                             </BreadcrumbItem>
                             <BreadcrumbItem active>Repositories</BreadcrumbItem>
                         </Breadcrumb>
                         <Table hover>
                             <tbody>
-                                <tr>
-                                    <th scope="row">
-                                        <a href="#">cli</a>
-                                    </th>
-                                    <td>This repo contains the .NET Core command-line (CLI) tools...</td>
-                                    <td>C#</td>
-                                    <td>Updated on Nov 13</td>
-                                </tr>
+                                { this.props.repos.map(repo => <RepoItem key={repo.id} {...repo} />) }
                             </tbody>
                         </Table>
                     </div>
@@ -49,4 +48,8 @@ class Repo extends Component {
     }
 }
 
-export default Repo
+export default connect(
+    (state) => ({repos: state.repos, showLoading: state.showLoading}),
+    {getRepos, showLoader}
+  )(Repo)
+  

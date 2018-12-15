@@ -4,7 +4,8 @@ const initialState = {
     username: '',
     repos: [],
     selectedRepo: {},
-    commits: []
+    commits: [],
+    showLoading: false
 }
 
 export default (state = initialState, action) => {
@@ -17,6 +18,10 @@ export default (state = initialState, action) => {
             return { ...state, repos: state.repos.concat(action.payload) }
         case actions.GET_COMMITS:
             return { ...state, commits: state.commits.concat(action.payload) }
+        case actions.SHOW_LOADING:
+            return { ...state, showLoading: action.payload }            
+        case actions.RESET_STATE:
+                return initialState
         default:
             return state
     }
