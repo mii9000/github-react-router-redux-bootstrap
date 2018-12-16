@@ -21,7 +21,7 @@ export class Search extends Component {
 
   _handleFindClick(event) {
     const username = this.state.value
-    if (username.length == 0) {
+    if (username.length === 0) {
       this.setState({...this.state, valid: false})
       return;
     }
