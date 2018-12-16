@@ -3,7 +3,7 @@ import { Button, Form, Input } from 'reactstrap'
 import './index.css'
 import { setUsername, resetState } from '../../state/actionCreators'
 
-export class Search extends Component {
+class Search extends Component {
 
   constructor() {
     super()

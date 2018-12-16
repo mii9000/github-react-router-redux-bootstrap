@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Search /> should match snapshot 1`] = `
+<div
+  className="gh-form-body"
+>
+  <div
+    className="container"
+  >
+    <h1>
+      Find public repositories
+    </h1>
+    <Form
+      className="gh-search-form"
+      onSubmit={[Function]}
+      tag="form"
+    >
+      <Input
+        className=""
+        onChange={[Function]}
+        placeholder="Enter A Github Username"
+        type="text"
+      />
+      <Button
+        color="primary"
+        onClick={[Function]}
+        tag="button"
+      >
+        Find
+      </Button>
+    </Form>
+  </div>
+</div>
+`;
