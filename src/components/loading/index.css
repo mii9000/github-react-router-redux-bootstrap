@@ -1,13 +1,5 @@
 #preloader {
-    position:fixed;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
-    background: #fff;
-    background-size: cover;
-    height: 100%;
-    z-index: 9999;
+    padding-top: 20px;
 }
 .sk-circle {
     width: 40px;

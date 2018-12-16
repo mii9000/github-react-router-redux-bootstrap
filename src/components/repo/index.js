@@ -20,14 +20,34 @@ const RepoItem = ({link, name, desc, lang, date}) => (
 
 class Repo extends Component {
 
+    constructor() {
+        super()
+        
+        this._handleOnScroll = this._handleOnScroll.bind(this)
+    }
+
     componentDidMount(){
         this.props.getRepos(this.props.match.params.username)
+        window.addEventListener('scroll', this._handleOnScroll)
+    }
+
+    componentWillUnmount(){
+        window.removeEventListener('scroll', this._handleOnScroll)
+    }
+
+    _handleOnScroll() {
+        if(this.props.showLoading || !this.props.repoContainer.pageInfo.hasNextPage) return
+        
+        if (window.innerHeight + document.documentElement.scrollTop
+            === document.documentElement.offsetHeight) {
+            this.props.getRepos(this.props.match.params.username, 
+               this.props.repoContainer.pageInfo.endCursor)
+        }
     }
 
     render() {
         return (
             <div>               
-                { this.props.showLoading ? <Loader /> : null }
                 <div className="gh-table-body">
                     <div className="container">
                         <Breadcrumb>
@@ -45,10 +65,11 @@ class Repo extends Component {
                             :
                             <Table hover>
                                 <tbody>
-                                    { this.props.repos.map(repo => <RepoItem key={repo.id} {...repo} />) }
+                                    { this.props.repoContainer.repos.map(repo => <RepoItem key={repo.id} {...repo} />) }
                                 </tbody>
                             </Table>
                         }
+                        { this.props.showLoading ? <Loader /> : null }
                     </div>
                 </div>                
             </div>
@@ -57,7 +78,7 @@ class Repo extends Component {
 }
 
 export default connect(
-    (state) => ({repos: state.repos, showLoading: state.showLoading, error: state.error}),
+    (state) => ({repoContainer: state.repoContainer, showLoading: state.showLoading, error: state.error}),
     {getRepos, showLoader}
   )(Repo)
   

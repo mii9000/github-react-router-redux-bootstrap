@@ -1,12 +1,12 @@
-import * as actions from "./actions"
+import * as actions from './actions'
 
 const initialState = {
     username: '',
-    repos: [],
     selectedRepo: {},
     commits: [],
     showLoading: false,
-    error: ''
+    error: '',
+    repoContainer: { pageInfo: { hasNextPage: false, endCursor: null }, repos: [] }
 }
 
 export default (state = initialState, action) => {
@@ -16,7 +16,14 @@ export default (state = initialState, action) => {
         case actions.SELECT_REPO:
             return { ...state, selectedRepo: action.payload }
         case actions.GET_REPOS:
-            return { ...state, repos: state.repos.concat(action.payload) }
+            return { ...state, repoContainer: { ...state.repoContainer,
+                    pageInfo: { ...state.repoContainer.pageInfo,
+                        hasNextPage: action.payload.pageInfo.hasNextPage, 
+                        endCursor: action.payload.pageInfo.endCursor 
+                    }, 
+                    repos: state.repoContainer.repos.concat(action.payload.repos) 
+                } 
+            }
         case actions.GET_COMMITS:
             return { ...state, commits: state.commits.concat(action.payload) }
         case actions.SHOW_LOADING:
