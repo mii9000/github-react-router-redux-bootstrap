@@ -5,7 +5,8 @@ const initialState = {
     repos: [],
     selectedRepo: {},
     commits: [],
-    showLoading: false
+    showLoading: false,
+    error: ''
 }
 
 export default (state = initialState, action) => {
@@ -21,7 +22,9 @@ export default (state = initialState, action) => {
         case actions.SHOW_LOADING:
             return { ...state, showLoading: action.payload }            
         case actions.RESET_STATE:
-                return initialState
+            return initialState
+        case actions.SET_ERROR:
+            return { ...state, error: action.payload }                
         default:
             return state
     }

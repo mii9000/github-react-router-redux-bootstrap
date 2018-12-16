@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Table, Breadcrumb, BreadcrumbItem } from 'reactstrap'
+import { Table, Breadcrumb, BreadcrumbItem, Alert } from 'reactstrap'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { getRepos, showLoader } from '../../state/actionCreators'
@@ -36,11 +36,19 @@ class Repo extends Component {
                             </BreadcrumbItem>
                             <BreadcrumbItem active>Repositories</BreadcrumbItem>
                         </Breadcrumb>
-                        <Table hover>
-                            <tbody>
-                                { this.props.repos.map(repo => <RepoItem key={repo.id} {...repo} />) }
-                            </tbody>
-                        </Table>
+                        {
+                            this.props.error.length > 0
+                            ?       
+                            <Alert color="danger">
+                                {this.props.error}
+                            </Alert>
+                            :
+                            <Table hover>
+                                <tbody>
+                                    { this.props.repos.map(repo => <RepoItem key={repo.id} {...repo} />) }
+                                </tbody>
+                            </Table>
+                        }
                     </div>
                 </div>                
             </div>
@@ -49,7 +57,7 @@ class Repo extends Component {
 }
 
 export default connect(
-    (state) => ({repos: state.repos, showLoading: state.showLoading}),
+    (state) => ({repos: state.repos, showLoading: state.showLoading, error: state.error}),
     {getRepos, showLoader}
   )(Repo)
   
