@@ -18,7 +18,7 @@ const RepoItem = ({link, name, desc, lang, date}) => (
     </tr>
 )
 
-class Repo extends Component {
+export class Repo extends Component {
 
     constructor() {
         super()

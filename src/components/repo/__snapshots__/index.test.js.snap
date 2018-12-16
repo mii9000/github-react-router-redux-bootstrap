@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Repo /> should match snapshot 1`] = `
+<div>
+  <div
+    className="gh-table-body"
+  >
+    <div
+      className="container"
+    >
+      <Breadcrumb
+        aria-label="breadcrumb"
+        listTag="ol"
+        tag="nav"
+      >
+        <BreadcrumbItem
+          tag="li"
+        >
+          <Link
+            replace={false}
+            to="/"
+          >
+            <strong>
+              ←
+            </strong>
+          </Link>
+        </BreadcrumbItem>
+        <BreadcrumbItem
+          active={true}
+          tag="li"
+        >
+          Repositories
+        </BreadcrumbItem>
+      </Breadcrumb>
+      <Table
+        hover={true}
+        responsiveTag="div"
+        tag="table"
+      >
+        <tbody>
+          <RepoItem
+            date="date"
+            desc="mock desc"
+            id={1}
+            key="1"
+            lang="js"
+            link="https://github.com"
+            name="some-project"
+          />
+        </tbody>
+      </Table>
+    </div>
+  </div>
+</div>
+`;
