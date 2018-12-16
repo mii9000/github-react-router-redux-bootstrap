@@ -1,6 +1,6 @@
 import * as actions from "./actions"
 import store from "../state/store"
-import { fetchRepos } from '../services/githubService'
+import { fetchRepos } from '../services/github'
 
 export const setUsername = (username) => store.dispatch({type: actions.SELECT_USER, payload: username})
 
