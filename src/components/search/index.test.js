@@ -49,6 +49,7 @@ describe('<Search />', () => {
       valid: true
     })
     button.simulate('click')
+    expect(wrapper.find('.gh-error').length).toBe(1)
     expect(historyMock.push.mock.calls.length).toBe(0)
   });
 
