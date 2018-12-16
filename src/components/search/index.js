@@ -40,7 +40,7 @@ export class Search extends Component {
           <h1>Find public repositories</h1>
           <Form className="gh-search-form" onSubmit={ e => { e.preventDefault(); }}>
             <Input onChange={this._handleOnChange} 
-                   type="text" placeholder="Enter A Github Username e.g. facebook"
+                   type="text" placeholder="Enter A Github Username"
                    className={this.state.valid ? "" : "gh-error"} />
             <Button onClick={this._handleFindClick} color="primary">Find</Button>
           </Form>
