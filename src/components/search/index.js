@@ -11,15 +11,13 @@ class Search extends Component {
       value: '',
       valid: true
     }
-    this._handleFindClick = this._handleFindClick.bind(this)
-    this._handleOnChange = this._handleOnChange.bind(this)
   }
 
   componentDidMount() {
     resetState()
   }
 
-  _handleFindClick(event) {
+  _handleFindClick = event => {
     const username = this.state.value
     if (username.length === 0) {
       this.setState({...this.state, valid: false})
@@ -29,7 +27,7 @@ class Search extends Component {
     this.props.history.push(`/${username}/repositories`)
   }
 
-  _handleOnChange(event) {
+  _handleOnChange = event => {
     this.setState({ value: event.target.value, valid: true })
   }
 

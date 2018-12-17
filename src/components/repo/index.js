@@ -20,12 +20,6 @@ const RepoItem = ({link, name, desc, lang, date}) => (
 
 export class Repo extends Component {
 
-    constructor() {
-        super()
-        
-        this._handleOnScroll = this._handleOnScroll.bind(this)
-    }
-
     componentDidMount(){
         this.props.getRepos(this.props.match.params.username)
         window.addEventListener('scroll', this._handleOnScroll)
@@ -35,7 +29,7 @@ export class Repo extends Component {
         window.removeEventListener('scroll', this._handleOnScroll)
     }
 
-    _handleOnScroll() {
+    _handleOnScroll = () => {
         if(this.props.showLoading || !this.props.repoContainer.pageInfo.hasNextPage) return
         
         if (window.innerHeight + document.documentElement.scrollTop

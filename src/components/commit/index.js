@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import './index.css';
+import React, { Component } from 'react'
+import './index.css'
 import { Breadcrumb, 
     BreadcrumbItem, 
     ListGroup,
     ListGroupItem,
     ListGroupItemHeading,
     ListGroupItemText
- } from 'reactstrap';
+ } from 'reactstrap'
 
 class Commit extends Component {
     render() {
@@ -44,4 +44,4 @@ class Commit extends Component {
       }    
 }
 
-export default Commit;
+export default Commit
