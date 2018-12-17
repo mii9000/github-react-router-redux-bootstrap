@@ -19,6 +19,10 @@ const repos = [
         date: 'date'
     }
 ]
+const pageInfo = {
+    endCursor: '',
+    hasNextPage: true
+}
 
 describe('<Repo />', () => {
     
@@ -80,6 +84,28 @@ describe('<Repo />', () => {
         wrapper.unmount()
     })
 
-    //write a test to assert that getRepos is called when scrolled to bottom
+    it('should get more repos if scrolled to bottom', () => {
+        const mockGetRepos = jest.fn()
+        
+        const map = {};
+        window.addEventListener = jest.fn((event, cb) => {
+            map[event] = cb;
+        });
+        
+        const wrapper = mount(<BrowserRouter>
+            <Repo error={ 'error' } 
+                repoContainer={ { repos, pageInfo } }
+                match={ match }
+                getRepos={ mockGetRepos }
+                showLoading={ false } />
+        </BrowserRouter>)
+
+        global.innerHeight = 0
+        map.scroll()
+        
+        expect(mockGetRepos).toHaveBeenCalledTimes(2)
+        wrapper.unmount()
+    })
+
 
 })
