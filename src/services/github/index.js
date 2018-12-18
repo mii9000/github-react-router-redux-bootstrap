@@ -1,5 +1,10 @@
+import { formatDate } from '../../utils/date'
+
 const token = process.env.REACT_APP_GITHUB_PERSONAL_ACCESS_TOKEN
 const baseUrl = 'https://api.github.com/graphql'
+const headers = {
+    'Authorization': `Bearer ${token}`
+}
 
 export const fetchRepos = async (username, endCursor = null) => {
     const query = `query getRepos($username: String!, $endCursor: String) {
@@ -29,20 +34,14 @@ export const fetchRepos = async (username, endCursor = null) => {
             operationName: 'getRepos',
             variables: { username, endCursor }
         }),
-        headers: {
-            'Authorization': `Bearer ${token}`,
-        }
+        headers: headers
     })
     
     const result = await response.json()
     
-    //if the response has errors
-    //then throw with the first error only
-    if(result.data.user === null 
-        && result.hasOwnProperty('errors')
-        && result.errors.length > 0) {
-        throw new Error(result.errors[0].message)
-    }
+    const {valid, message} = validate()
+    
+    if(!valid) throw new Exception(message)
     
     return {
         pageInfo: result.data.user.repositories.pageInfo,
@@ -56,7 +55,64 @@ export const fetchRepos = async (username, endCursor = null) => {
     }
 } 
 
-export const fetchCommits = async (username, repo) => {
-    const response = await fetch(`http://localhost:8080/${username}/${repo}`)
-    return await response.json()
+export const fetchCommits = async (username, repo, endCursor = null) => {
+    const query = `query getCommits($username: String!, $repo: String!, $endCursor: String) {
+        repository(name: $repo, owner: $username) {
+          ref(qualifiedName: "master") {
+            target {
+              ... on Commit {
+                history(first: 10, after: $endCursor) {
+                  pageInfo {
+                    hasNextPage
+                    endCursor
+                  }
+                  edges {
+                    node {
+                      messageHeadline
+                      oid
+                      message
+                      committedDate
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }`
+
+    const response = await fetch(baseUrl, {
+        method: 'POST',
+        body: JSON.stringify({
+            query: query,
+            operationName: 'getCommits',
+            variables: { username, repo, endCursor }
+        }),
+        headers: headers
+    })
+    
+    const result = await response.json()
+
+    const {valid, message} = validate()
+
+    if(!valid) throw new Exception(message)
+
+    return {
+        pageInfo: result.data.repository.ref.target.history.pageInfo,
+        commits: result.data.repository.ref.target.history.edges.map(commit => ({
+            id: commit.oid,
+            headline: commit.messageHeadline,
+            message: commit.message,
+            date: formatDate(commit.committedDate)
+        }))
+    }
 } 
+
+
+const validate = () => {    
+    if(result.hasOwnProperty('errors') && result.errors.length > 0) {
+        //get the first message only
+        return { valid: false, message: result.errors[0].message }
+    }
+    return { valid: true }
+}
