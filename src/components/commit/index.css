@@ -16,3 +16,11 @@
 .list-text-right {
     flex: none;
 }
+
+.gh-search {
+    margin-bottom: 20px;
+}
+
+.list-group-item {
+    margin-bottom: 20px;
+}
