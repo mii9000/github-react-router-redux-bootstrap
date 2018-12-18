@@ -44,26 +44,35 @@ export class Repo extends Component {
             <div>               
                 <div className="gh-table-body">
                     <div className="container">
-                        <Breadcrumb>
-                            <BreadcrumbItem>
-                                <Link to='/'><strong>&larr;</strong></Link>
-                            </BreadcrumbItem>
-                            <BreadcrumbItem active>Repositories</BreadcrumbItem>
-                        </Breadcrumb>
-                        {
-                            this.props.error.length > 0
-                            ?       
-                            <Alert color="danger">
-                                {this.props.error}
-                            </Alert>
-                            :
-                            <Table hover>
-                                <tbody>
-                                    { this.props.repoContainer.repos.map(repo => <RepoItem key={repo.id} {...repo} />) }
-                                </tbody>
-                            </Table>
-                        }
-                        { this.props.showLoading ? <Loader /> : null }
+                        <div className="row">
+                            <div className="col-lg-12">
+                                <Breadcrumb>
+                                    <BreadcrumbItem>
+                                        <Link to='/'><strong>&larr;</strong></Link>
+                                    </BreadcrumbItem>
+                                    <BreadcrumbItem active>Repositories</BreadcrumbItem>
+                                </Breadcrumb>
+                                {
+                                    this.props.error.length > 0
+                                    ?       
+                                    <Alert color="danger">
+                                        {this.props.error}
+                                    </Alert>
+                                    :
+                                    <Table hover>
+                                        <tbody>
+                                            { this.props.repoContainer.repos.map(repo => <RepoItem key={repo.id} {...repo} />) }
+                                        </tbody>
+                                    </Table>
+                                }
+                                { this.props.showLoading 
+                                    ? 
+                                    <Loader /> 
+                                    : 
+                                    null 
+                                }
+                            </div>
+                        </div>
                     </div>
                 </div>                
             </div>

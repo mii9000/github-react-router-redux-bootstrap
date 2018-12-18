@@ -8,47 +8,55 @@ exports[`<Repo /> should match snapshot 1`] = `
     <div
       className="container"
     >
-      <Breadcrumb
-        aria-label="breadcrumb"
-        listTag="ol"
-        tag="nav"
+      <div
+        className="row"
       >
-        <BreadcrumbItem
-          tag="li"
+        <div
+          className="col-lg-12"
         >
-          <Link
-            replace={false}
-            to="/"
+          <Breadcrumb
+            aria-label="breadcrumb"
+            listTag="ol"
+            tag="nav"
           >
-            <strong>
-              ←
-            </strong>
-          </Link>
-        </BreadcrumbItem>
-        <BreadcrumbItem
-          active={true}
-          tag="li"
-        >
-          Repositories
-        </BreadcrumbItem>
-      </Breadcrumb>
-      <Table
-        hover={true}
-        responsiveTag="div"
-        tag="table"
-      >
-        <tbody>
-          <RepoItem
-            date="date"
-            desc="mock desc"
-            id={1}
-            key="1"
-            lang="js"
-            link="https://github.com"
-            name="some-project"
-          />
-        </tbody>
-      </Table>
+            <BreadcrumbItem
+              tag="li"
+            >
+              <Link
+                replace={false}
+                to="/"
+              >
+                <strong>
+                  ←
+                </strong>
+              </Link>
+            </BreadcrumbItem>
+            <BreadcrumbItem
+              active={true}
+              tag="li"
+            >
+              Repositories
+            </BreadcrumbItem>
+          </Breadcrumb>
+          <Table
+            hover={true}
+            responsiveTag="div"
+            tag="table"
+          >
+            <tbody>
+              <RepoItem
+                date="date"
+                desc="mock desc"
+                id={1}
+                key="1"
+                lang="js"
+                link="https://github.com"
+                name="some-project"
+              />
+            </tbody>
+          </Table>
+        </div>
+      </div>
     </div>
   </div>
 </div>
