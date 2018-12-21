@@ -9,7 +9,7 @@ const headers = {
 export const fetchRepos = async (username, endCursor = null) => {
     const query = `query getRepos($username: String!, $endCursor: String) {
         user(login: $username) {
-          repositories(first: 10, orderBy: {field: PUSHED_AT, direction: DESC}, after: $endCursor) {
+          repositories(first: 20, orderBy: {field: PUSHED_AT, direction: DESC}, after: $endCursor) {
             pageInfo {
               hasNextPage
               endCursor
@@ -39,16 +39,18 @@ export const fetchRepos = async (username, endCursor = null) => {
     
     const result = await response.json()
     
-    const {valid, message} = validate()
+    const {valid, message} = validate(result)
     
-    if(!valid) throw new Exception(message)
+    if(!valid) throw new Error(message)
     
     return {
         pageInfo: result.data.user.repositories.pageInfo,
         repos: result.data.user.repositories.nodes.map(repo => ({
             id: repo.id,
             name: repo.name,
-            desc: repo.description ? repo.description.substring(0, 80) + '...' : repo.description,
+            desc: repo.description > 80
+                ? repo.description.substring(0, 80) + '...' 
+                : repo.description,
             link: repo.url,
             lang: repo.primaryLanguage ? repo.primaryLanguage.name : ""
         }))
@@ -61,7 +63,7 @@ export const fetchCommits = async (username, repo, endCursor = null) => {
           ref(qualifiedName: "master") {
             target {
               ... on Commit {
-                history(first: 10, after: $endCursor) {
+                history(first: 20, after: $endCursor) {
                   pageInfo {
                     hasNextPage
                     endCursor
@@ -93,9 +95,9 @@ export const fetchCommits = async (username, repo, endCursor = null) => {
     
     const result = await response.json()
 
-    const {valid, message} = validate()
+    const {valid, message} = validate(result)
 
-    if(!valid) throw new Exception(message)
+    if(!valid) throw new Error(message)
 
     return {
         pageInfo: result.data.repository.ref.target.history.pageInfo,
@@ -109,7 +111,7 @@ export const fetchCommits = async (username, repo, endCursor = null) => {
 } 
 
 
-const validate = () => {    
+const validate = (result) => {    
     if(result.hasOwnProperty('errors') && result.errors.length > 0) {
         //get the first message only
         return { valid: false, message: result.errors[0].message }
