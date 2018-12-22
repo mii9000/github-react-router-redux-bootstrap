@@ -12,7 +12,7 @@ import { Breadcrumb,
  import { Link } from 'react-router-dom'
  import Loader from '../loading'
  import { connect } from 'react-redux'
- import { getCommits, resetCommits } from '../../state/actionCreators'
+ import { getCommits, resetCommits, setError } from '../../state/actionCreators'
 
 
 const CommitItem = ({headline, message, date}) => (
@@ -38,9 +38,8 @@ export class Commit extends Component {
 
     componentDidMount(){
         const {username, repo} = this.props.match.params
-        if (this.props.commitContainer.repo.toLowerCase() !== repo) {
-            this.props.resetCommits()
-            this.props.getCommits(username, repo)
+        if (this.props.commitContainer.repo !== repo) {
+            this.props.resetCommits(username, repo)
         }
         window.addEventListener('scroll', this._handleOnScroll)
     }
@@ -52,6 +51,7 @@ export class Commit extends Component {
     }
 
     componentWillUnmount() {
+        this.props.setError('')
         window.removeEventListener('scroll', this._handleOnScroll)
     }
 
@@ -143,5 +143,5 @@ export class Commit extends Component {
 
 export default connect(
     (state) => ({commitContainer: state.commitContainer, showLoading: state.showLoading, error: state.error}),
-    {getCommits, resetCommits}
+    {getCommits, resetCommits, setError}
   )(Commit)

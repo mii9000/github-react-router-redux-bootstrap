@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Form, Input } from 'reactstrap'
 import './index.css'
-import { setUsername, resetState } from '../../state/actionCreators'
+import { resetState } from '../../state/actionCreators'
 
 class Search extends Component {
 
@@ -23,7 +23,6 @@ class Search extends Component {
       this.setState({...this.state, valid: false})
       return;
     }
-    setUsername(username)
     this.props.history.push(`/${username}/repositories`)
   }
 

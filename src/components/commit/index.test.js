@@ -16,13 +16,15 @@ describe('<Commit />', () => {
         const div = document.createElement('div')
         const mockGetCommits = jest.fn()
         const mockResetCommits = jest.fn()
+        const mockSetError = jest.fn()
         ReactDOM.render(
         <BrowserRouter>
             <Commit error={''} 
                 commitContainer={ {repo: '', commits: []} }
                 match={ match }
                 getCommits={mockGetCommits}
-                resetCommits={mockResetCommits} />
+                resetCommits={mockResetCommits}
+                setError={mockSetError} />
         </BrowserRouter>, div)
         // expect(mockGetCommits).toHaveBeenCalledTimes(1)
         // expect(mockResetCommits).toHaveBeenCalledTimes(1)

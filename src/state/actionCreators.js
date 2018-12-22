@@ -17,6 +17,24 @@ const showError = (err) => ({type: actions.SET_ERROR, payload: err})
 
 const showLoader = (show) => ({type: actions.SHOW_LOADING, payload: show})
 
+const commitLoader = async (dispatch, username, repo, endCursor = null) => {    
+    dispatch(showLoader(true))
+    try {
+        const commitContainer = await fetchCommits(username, repo, endCursor)
+        dispatch(loadCommits(commitContainer))
+        dispatch(showLoader(false))            
+    } catch (error) {
+        dispatch(showLoader(false))
+        dispatch(showError(error.message))
+    }
+}
+
+export const setError = (error) => {
+    return (dispatch) => {
+        dispatch(showError(error))
+    }
+}
+
 export const getRepos = (username, endCursor = null) => {
     return async (dispatch) => {
         dispatch(showLoader(true))
@@ -34,19 +52,12 @@ export const getRepos = (username, endCursor = null) => {
 export const resetCommits = (username, repo) => {
     return (dispatch) => {
         dispatch(cleanCommits())
+        commitLoader(dispatch, username, repo)
     }
 }
 
 export const getCommits = (username, repo, endCursor = null) => {
     return async (dispatch) => {
-        dispatch(showLoader(true))
-        try {
-            const commitContainer = await fetchCommits(username, repo, endCursor)
-            dispatch(loadCommits(commitContainer))
-            dispatch(showLoader(false))            
-        } catch (error) {
-            dispatch(showLoader(false))
-            dispatch(showError(error.message))
-        }        
+        commitLoader(dispatch, username, repo, endCursor)
     }
 }

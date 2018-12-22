@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Table, Breadcrumb, BreadcrumbItem, Alert } from 'reactstrap'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getRepos } from '../../state/actionCreators'
+import { getRepos, setUsername } from '../../state/actionCreators'
 import './index.css'
 import Loader from '../loading'
 
@@ -20,12 +20,10 @@ const RepoItem = (props) => (
 export class Repo extends Component {
 
     componentDidMount(){
-        //on mount if backing from commits page
-        //the dont load repos again
-        //the state should have all the loaded repos already
-        //length will be 0 only when coming from search page
-        if (this.props.repoContainer.repos.length === 0) {
-            this.props.getRepos(this.props.match.params.username)
+        const username = this.props.match.params.username
+        if (username !== this.props.username) {
+            this.props.getRepos(username)
+            setUsername(username)
         }
         window.addEventListener('scroll', this._handleOnScroll)
     }
@@ -94,7 +92,8 @@ export class Repo extends Component {
 }
 
 export default connect(
-    (state) => ({repoContainer: state.repoContainer, showLoading: state.showLoading, error: state.error}),
+    (state) => ({repoContainer: state.repoContainer, 
+        showLoading: state.showLoading, error: state.error, username: state.username}),
     {getRepos}
   )(Repo)
   
