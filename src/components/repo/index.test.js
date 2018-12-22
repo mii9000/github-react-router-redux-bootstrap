@@ -92,19 +92,18 @@ describe('<Repo />', () => {
             map[event] = cb;
         });
         
-        const wrapper = mount(<BrowserRouter>
+        const wrapper = shallow(
             <Repo error={ 'error' } 
                 repoContainer={ { repos, pageInfo } }
                 match={ match }
                 getRepos={ mockGetRepos }
                 showLoading={ false } />
-        </BrowserRouter>)
+        )
 
         global.innerHeight = 0
         map.scroll()
         
         expect(mockGetRepos).toHaveBeenCalledTimes(2)
-        wrapper.unmount()
     })
 
 

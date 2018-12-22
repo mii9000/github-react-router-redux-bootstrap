@@ -29,11 +29,9 @@ const CommitItem = ({headline, message, date}) => (
 
 export class Commit extends Component {
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            commits: this.props.commitContainer.commits
-        }
+    state = {
+        isSearching: false,
+        commits: this.props.commitContainer.commits
     }
 
     componentDidMount(){
