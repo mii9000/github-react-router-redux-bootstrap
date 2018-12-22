@@ -32,6 +32,11 @@ exports[`<Repo /> should match snapshot 1`] = `
               </Link>
             </BreadcrumbItem>
             <BreadcrumbItem
+              tag="li"
+            >
+              test
+            </BreadcrumbItem>
+            <BreadcrumbItem
               active={true}
               tag="li"
             >
@@ -52,6 +57,7 @@ exports[`<Repo /> should match snapshot 1`] = `
                 lang="js"
                 link="https://github.com"
                 name="some-project"
+                onClick={[Function]}
               />
             </tbody>
           </Table>

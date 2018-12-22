@@ -98,14 +98,14 @@ describe('Github Service Successes', () => {
                                     hasNextPage: false, 
                                     endCursor: null
                                 },
-                                edges: [
-                                    {
+                                edges: [{
+                                    node: {
                                         oid: 1,
                                         messageHeadline: 'headline',
                                         message: 'message',
-                                        committedDate: '2016-01-24T12:59:34Z'
-                                    }
-                                ]
+                                        committedDate: '2016-01-24T12:59:34Z'                                        
+                                    }        
+                                }]
                             }
                         }
                     }
@@ -124,6 +124,7 @@ describe('Github Service Successes', () => {
         const result = await fetchCommits('username', 'repo')
 
         expect(result).toEqual({
+            repo: 'repo',
             pageInfo: {
                 hasNextPage: false, 
                 endCursor: null
