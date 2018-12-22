@@ -1,27 +1,32 @@
 import React, { Component } from 'react'
 import { Table, Breadcrumb, BreadcrumbItem, Alert } from 'reactstrap'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getRepos, showLoader } from '../../state/actionCreators'
+import { getRepos } from '../../state/actionCreators'
 import './index.css'
 import Loader from '../loading'
 
 
-const RepoItem = ({link, name, desc, lang, date}) => (
-    <tr>
+const RepoItem = (props) => (
+    <tr onClick={props.onClick}>
         <th scope="row">
-            <a href={link}>{name}</a>
+            <a href={props.link}>{props.name}</a>
         </th>
-        <td>{desc}</td>
-        <td>{lang}</td>
-        <td>{date}</td>
-    </tr>
+        <td>{props.desc}</td>
+        <td>{props.lang}</td>
+    </tr>            
 )
 
 export class Repo extends Component {
 
     componentDidMount(){
-        this.props.getRepos(this.props.match.params.username)
+        //on mount if backing from commits page
+        //the dont load repos again
+        //the state should have all the loaded repos already
+        //length will be 0 only when coming from search page
+        if (this.props.repoContainer.repos.length === 0) {
+            this.props.getRepos(this.props.match.params.username)
+        }
         window.addEventListener('scroll', this._handleOnScroll)
     }
 
@@ -39,6 +44,10 @@ export class Repo extends Component {
         }
     }
 
+    _handleOnClick = (repo) => {
+        this.props.history.push(`/${this.props.match.params.username}/repositories/${repo.name}/commits`)
+    }
+
     render() {
         return (
             <div>               
@@ -49,6 +58,9 @@ export class Repo extends Component {
                                 <Breadcrumb>
                                     <BreadcrumbItem>
                                         <Link to='/'><strong>&larr;</strong></Link>
+                                    </BreadcrumbItem>
+                                    <BreadcrumbItem>
+                                        { this.props.match.params.username }
                                     </BreadcrumbItem>
                                     <BreadcrumbItem active>Repositories</BreadcrumbItem>
                                 </Breadcrumb>
@@ -61,7 +73,8 @@ export class Repo extends Component {
                                     :
                                     <Table hover>
                                         <tbody>
-                                            { this.props.repoContainer.repos.map(repo => <RepoItem key={repo.id} {...repo} />) }
+                                            { this.props.repoContainer.repos
+                                                .map(repo => <RepoItem onClick={_ => this._handleOnClick(repo)} key={repo.id} {...repo} />) }
                                         </tbody>
                                     </Table>
                                 }
@@ -82,6 +95,6 @@ export class Repo extends Component {
 
 export default connect(
     (state) => ({repoContainer: state.repoContainer, showLoading: state.showLoading, error: state.error}),
-    {getRepos, showLoader}
+    {getRepos}
   )(Repo)
   

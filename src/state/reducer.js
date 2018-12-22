@@ -5,7 +5,7 @@ const initialState = {
     selectedRepo: {},
     showLoading: false,
     error: '',
-    commitContainer: { pageInfo: { hasNextPage: false, endCursor: null }, commits: [] },
+    commitContainer: { repo: '', pageInfo: { hasNextPage: false, endCursor: null }, commits: [] },
     repoContainer: { pageInfo: { hasNextPage: false, endCursor: null }, repos: [] }
 }
 
@@ -32,13 +32,16 @@ export default (state = initialState, action) => {
             }
         case actions.GET_COMMITS:
             return { ...state, commitContainer: { ...state.commitContainer,
+                    repo: action.payload.repo,
                     pageInfo: { ...state.commitContainer.pageInfo,
                         hasNextPage: action.payload.pageInfo.hasNextPage, 
                         endCursor: action.payload.pageInfo.endCursor 
                     }, 
-                    commits: state.commitContainer.repos.concat(action.payload.commits) 
+                    commits: state.commitContainer.commits.concat(action.payload.commits) 
                 } 
-            }            
+            }
+        case actions.RESET_COMMITS:
+            return { ...state, commitContainer: initialState.commitContainer }                        
         default:
             return state
     }

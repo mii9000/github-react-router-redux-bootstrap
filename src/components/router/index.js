@@ -9,7 +9,7 @@ const Router = () => (
         <Switch>
             <Route exact path = "/" component = {Search} />
             <Route exact path = "/:username/repositories" component = {Repo} />
-            <Route exact path = "/:username/repositories/:name/commits" component = {Commit} />
+            <Route exact path = "/:username/repositories/:repo/commits" component = {Commit} />
         </Switch>
     </BrowserRouter>
 );

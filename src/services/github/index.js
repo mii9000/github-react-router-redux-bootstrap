@@ -52,7 +52,7 @@ export const fetchRepos = async (username, endCursor = null) => {
                 ? repo.description.substring(0, 80) + '...' 
                 : repo.description,
             link: repo.url,
-            lang: repo.primaryLanguage ? repo.primaryLanguage.name : ""
+            lang: repo.primaryLanguage ? repo.primaryLanguage.name : ''
         }))
     }
 } 
@@ -100,12 +100,13 @@ export const fetchCommits = async (username, repo, endCursor = null) => {
     if(!valid) throw new Error(message)
 
     return {
+        repo: repo,
         pageInfo: result.data.repository.ref.target.history.pageInfo,
-        commits: result.data.repository.ref.target.history.edges.map(commit => ({
-            id: commit.oid,
-            headline: commit.messageHeadline,
-            message: commit.message,
-            date: formatDate(commit.committedDate)
+        commits: result.data.repository.ref.target.history.edges.map(o => ({
+            id: o.node.oid,
+            headline: o.node.messageHeadline,
+            message: o.node.message,
+            date: formatDate(o.node.committedDate)
         }))
     }
 } 
