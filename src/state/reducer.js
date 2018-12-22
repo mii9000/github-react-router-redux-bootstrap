@@ -13,8 +13,6 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case actions.SELECT_USER:
             return { ...state, username: action.payload };        
-        case actions.SELECT_REPO:
-            return { ...state, selectedRepo: action.payload }
         case actions.SHOW_LOADING:
             return { ...state, showLoading: action.payload }            
         case actions.RESET_STATE:
