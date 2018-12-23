@@ -2,10 +2,9 @@ import * as actions from "./actions"
 import store from "../state/store"
 import { fetchRepos, fetchCommits } from '../services/github'
 
-//TODO change these to connect with react-redux
 export const setUsername = (username) => store.dispatch({type: actions.SELECT_USER, payload: username})
 
-export const resetState = () => store.dispatch({type: actions.RESET_STATE, payload: null})
+const _resetState = () => ({type: actions.RESET_STATE, payload: null})
 
 const loadRepos = (repoContainer) => ({type: actions.GET_REPOS, payload: repoContainer})
 
@@ -59,5 +58,11 @@ export const resetCommits = (username, repo) => {
 export const getCommits = (username, repo, endCursor = null) => {
     return async (dispatch) => {
         commitLoader(dispatch, username, repo, endCursor)
+    }
+}
+
+export const resetState = () => {
+    return dispatch => {
+        dispatch(_resetState())
     }
 }

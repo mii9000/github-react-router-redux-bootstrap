@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { Button, Form, Input } from 'reactstrap'
 import './index.css'
 import { resetState } from '../../state/actionCreators'
+import { connect } from 'react-redux'
 
-class Search extends Component {
+export class Search extends Component {
 
   constructor() {
     super()
@@ -14,7 +15,7 @@ class Search extends Component {
   }
 
   componentDidMount() {
-    resetState()
+    this.props.resetState()
   }
 
   _handleFindClick = event => {
@@ -47,4 +48,7 @@ class Search extends Component {
   }
 }
 
-export default Search
+export default connect(
+  null,
+  {resetState}
+)(Search)

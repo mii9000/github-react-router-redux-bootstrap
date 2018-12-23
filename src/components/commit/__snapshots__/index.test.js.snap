@@ -37,9 +37,8 @@ exports[`<Commit /> should match snapshot 1`] = `
             tag="li"
           >
             <Link
-              onClick={[Function]}
               replace={false}
-              to="#"
+              to="/test/repositories"
             >
               Repositories
             </Link>
