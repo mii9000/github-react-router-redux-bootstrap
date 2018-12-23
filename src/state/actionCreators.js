@@ -6,58 +6,58 @@ export const setUsername = (username) => store.dispatch({type: actions.SELECT_US
 
 const _resetState = () => ({type: actions.RESET_STATE, payload: null})
 
-const loadRepos = (repoContainer) => ({type: actions.GET_REPOS, payload: repoContainer})
+const _getRepos = (repoContainer) => ({type: actions.GET_REPOS, payload: repoContainer})
 
-const loadCommits = (commitContainer) => ({type: actions.GET_COMMITS, payload: commitContainer})
+const _loadCommits = (commitContainer) => ({type: actions.GET_COMMITS, payload: commitContainer})
 
-const cleanCommits = () => ({type: actions.RESET_COMMITS, payload: null})
+const _resetCommits = () => ({type: actions.RESET_COMMITS, payload: null})
 
-const showError = (err) => ({type: actions.SET_ERROR, payload: err})
+const _setError = (err) => ({type: actions.SET_ERROR, payload: err})
 
-const showLoader = (show) => ({type: actions.SHOW_LOADING, payload: show})
+const _showLoader = (show) => ({type: actions.SHOW_LOADING, payload: show})
 
-const commitLoader = async (dispatch, username, repo, endCursor = null) => {    
-    dispatch(showLoader(true))
+const _commitLoader = async (dispatch, username, repo, endCursor = null) => {    
+    dispatch(_showLoader(true))
     try {
         const commitContainer = await fetchCommits(username, repo, endCursor)
-        dispatch(loadCommits(commitContainer))
-        dispatch(showLoader(false))            
+        dispatch(_loadCommits(commitContainer))
+        dispatch(_showLoader(false))            
     } catch (error) {
-        dispatch(showLoader(false))
-        dispatch(showError(error.message))
+        dispatch(_showLoader(false))
+        dispatch(_setError(error.message))
     }
 }
 
 export const setError = (error) => {
     return (dispatch) => {
-        dispatch(showError(error))
+        dispatch(_setError(error))
     }
 }
 
 export const getRepos = (username, endCursor = null) => {
     return async (dispatch) => {
-        dispatch(showLoader(true))
+        dispatch(_showLoader(true))
         try {
             const repoContainer = await fetchRepos(username, endCursor)
-            dispatch(loadRepos(repoContainer))
-            dispatch(showLoader(false))            
+            dispatch(_getRepos(repoContainer))
+            dispatch(_showLoader(false))            
         } catch (error) {
-            dispatch(showLoader(false))
-            dispatch(showError(error.message))
+            dispatch(_showLoader(false))
+            dispatch(_setError(error.message))
         }
     }
 }
 
 export const resetCommits = (username, repo) => {
     return (dispatch) => {
-        dispatch(cleanCommits())
-        commitLoader(dispatch, username, repo)
+        dispatch(_resetCommits())
+        _commitLoader(dispatch, username, repo)
     }
 }
 
 export const getCommits = (username, repo, endCursor = null) => {
     return async (dispatch) => {
-        commitLoader(dispatch, username, repo, endCursor)
+        _commitLoader(dispatch, username, repo, endCursor)
     }
 }
 
