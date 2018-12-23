@@ -18,7 +18,7 @@ exports[`<Search /> should match snapshot 1`] = `
       <Input
         className=""
         onChange={[Function]}
-        placeholder="Enter A Github Username"
+        placeholder="Enter A Github Username e.g. ibrahim-islam"
         type="text"
       />
       <Button
