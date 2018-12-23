@@ -1,6 +1,27 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Features
+- Search for any user's (not Orgs) public repositories
+- Get all commits of a selected repository
+- Filter commits based on searching commit messages
+- Go back and forth between repos and commits views without re-fetching data
+- Infinite scrolling in repos and commits views
+- Cross-browser compatible
+- 99 Lighthouse Performance Score
 
-## Available Scripts
+## Tools
+- Create React App - Bootstrapper
+- React - UI
+- Redux - State Management
+- Reactstrap - Bootstrap 4 React Components
+- Jest - Test Framework
+- Enzyme - React Test Utility
+- Github GQL - Data
+
+## ES6+ Features
+- async await - Used to wait for an asynchronous operation to complete e.g. `fetch` without making use of callbacks with `Promise.then`. This makes the code look synchronous and increases readability.
+- Arrow Functions - Used to capture the expected context of `this`, get rid of binding in Component constructors and also more concise than writing `function` everytime
+- Spread Operator - Used to clone objects to help with immutability and to deconstruct object properties into multiple assignments
+
+## Dev
 
 In the project directory, you can run:
 
@@ -27,18 +48,3 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
