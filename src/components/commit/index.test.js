@@ -128,14 +128,73 @@ describe('<Commit />', () => {
                 match={ match }
                 getCommits={mockGetCommits}
                 resetCommits={mockResetCommits}
-                setError={mockSetError}
-                showLoading={false} />)
+                setError={mockSetError} />)
 
         global.innerHeight = 0
         map.scroll()
         
+        expect(wrapper.state()).toEqual({
+            isSearching: false,
+            commits: [{ id: 1, headline: 'headline', message: 'message', date: 'date' }]
+        })
+        expect(wrapper.find('CommitItem').length).toBe(1)
         expect(mockResetCommits).toHaveBeenCalledTimes(1)
         expect(mockGetCommits).toHaveBeenCalledTimes(1)
+    })
+
+    it('should show filtered commits when searched', () => {
+        const mockGetCommits = jest.fn()
+        const mockResetCommits = jest.fn()
+        const mockSetError = jest.fn()
+        const commitContainer = {
+            repo: '', 
+            pageInfo: { 
+                hasNextPage: true
+            },
+            commits: [{
+                id: 1,
+                headline: 'headline one',
+                message: 'message one',
+                date: 'date one'
+            },{
+                id: 2,
+                headline: 'headline 2',
+                message: 'message 2',
+                date: 'date 2'
+            }] 
+        }
+
+        const wrapper = shallow(<Commit 
+            error={''} 
+            commitContainer={ commitContainer }
+            match={ match }
+            getCommits={mockGetCommits}
+            resetCommits={mockResetCommits}
+            setError={mockSetError} />)
+
+        expect(wrapper.find('CommitItem').length).toBe(2)
+
+        const searchInput = wrapper.find('Input.gh-search').first()
+
+        const event = {
+            target: {
+                value: 'headline 2'
+            }
+        }
+
+        searchInput.simulate('change', event)
+        
+        const commitItems = wrapper.find('CommitItem') 
+        expect(commitItems.length).toBe(1)
+        expect(commitItems.first().prop('headline')).toEqual('headline 2');
+        expect(wrapper.state()).toEqual({ isSearching: true,
+            commits:[ 
+                { id: 2,
+                 headline: 'headline 2',
+                 message: 'message 2',
+                 date: 'date 2' 
+            } 
+        ]})
     })
 
 })
