@@ -89,7 +89,7 @@ export class Commit extends Component {
                                     { this.props.match.params.username }
                                 </BreadcrumbItem>
                                 <BreadcrumbItem>
-                                    <Link to="#" onClick={_ => this.props.history.goBack()}>Repositories</Link>
+                                    <Link to={`/${this.props.match.params.username}/repositories`}>Repositories</Link>
                                 </BreadcrumbItem>
                                 <BreadcrumbItem>
                                     { this.props.match.params.repo }
