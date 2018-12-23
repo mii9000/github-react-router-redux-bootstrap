@@ -29,13 +29,16 @@ describe('<Repo />', () => {
     it('should render without crashing', () => {
         const div = document.createElement('div')
         const mockGetRepos = jest.fn()
+        const mockSetUsername = jest.fn()
         ReactDOM.render(
         <BrowserRouter>
             <Repo error={''} 
                 repoContainer={ {repos: []} }
                 match={ match }
-                getRepos={mockGetRepos} />
+                getRepos={mockGetRepos}
+                setUsername={mockSetUsername} />
         </BrowserRouter>, div)
+        expect(mockSetUsername).toHaveBeenCalledTimes(1)
         expect(mockGetRepos).toHaveBeenCalledTimes(1)
         ReactDOM.unmountComponentAtNode(div)
     })
@@ -46,7 +49,8 @@ describe('<Repo />', () => {
         <Repo error={''} 
             repoContainer={ {repos} }
             match={ match }
-            getRepos={mockGetRepos} />
+            getRepos={mockGetRepos}
+            setUsername={jest.fn()} />
         )
         expect(toJson(wrapper)).toMatchSnapshot()
         expect(mockGetRepos).toHaveBeenCalledTimes(1)
@@ -60,7 +64,8 @@ describe('<Repo />', () => {
                 <Repo error={ 'error' } 
                     repoContainer={ { repos } }
                     match={ match }
-                    getRepos={ mockGetRepos } />            
+                    getRepos={ mockGetRepos }
+                    setUsername={jest.fn()} />            
             </BrowserRouter>
         )
         expect(wrapper.find('Alert').length).toBe(1)
@@ -77,7 +82,8 @@ describe('<Repo />', () => {
                 repoContainer={ { repos } }
                 match={ match }
                 getRepos={ mockGetRepos }
-                showLoading={ true } />
+                showLoading={ true }
+                setUsername={jest.fn()} />
         </BrowserRouter>
         )
         expect(wrapper.find('div#preloader').length).toBe(1)
@@ -86,6 +92,7 @@ describe('<Repo />', () => {
 
     it('should get more repos if scrolled to bottom', () => {
         const mockGetRepos = jest.fn()
+        const mockSetUsername = jest.fn()
         
         const map = {};
         window.addEventListener = jest.fn((event, cb) => {
@@ -97,12 +104,14 @@ describe('<Repo />', () => {
                 repoContainer={ { repos, pageInfo } }
                 match={ match }
                 getRepos={ mockGetRepos }
-                showLoading={ false } />
+                showLoading={ false }
+                setUsername={ mockSetUsername } />
         )
 
         global.innerHeight = 0
         map.scroll()
         
+        expect(mockSetUsername).toHaveBeenCalledTimes(1)
         expect(mockGetRepos).toHaveBeenCalledTimes(2)
     })
 

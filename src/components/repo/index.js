@@ -23,7 +23,7 @@ export class Repo extends Component {
         const username = this.props.match.params.username
         if (username !== this.props.username) {
             this.props.getRepos(username)
-            setUsername(username)
+            this.props.setUsername(username)
         }
         window.addEventListener('scroll', this._handleOnScroll)
     }
@@ -94,6 +94,6 @@ export class Repo extends Component {
 export default connect(
     (state) => ({repoContainer: state.repoContainer, 
         showLoading: state.showLoading, error: state.error, username: state.username}),
-    {getRepos}
+    {getRepos, setUsername}
   )(Repo)
   

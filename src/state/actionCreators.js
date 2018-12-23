@@ -1,8 +1,7 @@
-import * as actions from "./actions"
-import store from "../state/store"
+import * as actions from './actions'
 import { fetchRepos, fetchCommits } from '../services/github'
 
-export const setUsername = (username) => store.dispatch({type: actions.SELECT_USER, payload: username})
+const _setUsername = (username) => ({type: actions.SELECT_USER, payload: username})
 
 const _resetState = () => ({type: actions.RESET_STATE, payload: null})
 
@@ -29,13 +28,13 @@ const _commitLoader = async (dispatch, username, repo, endCursor = null) => {
 }
 
 export const setError = (error) => {
-    return (dispatch) => {
+    return dispatch => {
         dispatch(_setError(error))
     }
 }
 
 export const getRepos = (username, endCursor = null) => {
-    return async (dispatch) => {
+    return async dispatch => {
         dispatch(_showLoader(true))
         try {
             const repoContainer = await fetchRepos(username, endCursor)
@@ -49,14 +48,14 @@ export const getRepos = (username, endCursor = null) => {
 }
 
 export const resetCommits = (username, repo) => {
-    return (dispatch) => {
+    return dispatch => {
         dispatch(_resetCommits())
         _commitLoader(dispatch, username, repo)
     }
 }
 
 export const getCommits = (username, repo, endCursor = null) => {
-    return async (dispatch) => {
+    return async dispatch => {
         _commitLoader(dispatch, username, repo, endCursor)
     }
 }
@@ -64,5 +63,11 @@ export const getCommits = (username, repo, endCursor = null) => {
 export const resetState = () => {
     return dispatch => {
         dispatch(_resetState())
+    }
+}
+
+export const setUsername = (username) => {
+    return dispatch => {
+        dispatch(_setUsername(username))
     }
 }
