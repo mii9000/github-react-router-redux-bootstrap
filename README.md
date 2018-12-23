@@ -1,4 +1,4 @@
-## [Live Demo](http://festive-waste.surge.sh/)
+## [Live Demo](http://github-client-react.surge.sh/)
 
 ## Features
 - Search for any user's (not Orgs) public repositories
