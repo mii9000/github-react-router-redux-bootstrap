@@ -1,4 +1,4 @@
-## [Live Demo](http://github-client-react.surge.sh/)
+## [Live Demo](http://react-github-client.surge.sh/)
 
 ## Features
 - Search for any user's (not Orgs) public repositories
