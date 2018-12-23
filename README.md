@@ -1,3 +1,5 @@
+## [Live Demo](http://festive-waste.surge.sh/)
+
 ## Features
 - Search for any user's (not Orgs) public repositories
 - Get all commits of a selected repository
