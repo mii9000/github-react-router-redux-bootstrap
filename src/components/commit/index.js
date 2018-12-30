@@ -67,11 +67,11 @@ export class Commit extends Component {
     }
 
     _onSearch = (event) => {
-        const searchTerm = event.target.value
+        const searchTerm = event.target.value || 0
         this.setState({
             isSearching: searchTerm.length > 0,
             commits: this.props.commitContainer.commits
-                .filter(commit => commit.headline.toLowerCase().includes(searchTerm))
+                .filter(commit => commit.headline.toLowerCase().includes(searchTerm.toLowerCase()))
         })
     }
 

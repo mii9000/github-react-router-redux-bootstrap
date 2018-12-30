@@ -5,6 +5,7 @@ import Adapter from 'enzyme-adapter-react-16'
 import toJson from 'enzyme-to-json'
 import { BrowserRouter } from 'react-router-dom'
 import { Commit } from './index'
+import cases from 'jest-in-case'
 
 configure({ adapter : new Adapter() })
 
@@ -142,59 +143,65 @@ describe('<Commit />', () => {
         expect(mockGetCommits).toHaveBeenCalledTimes(1)
     })
 
-    it('should show filtered commits when searched', () => {
-        const mockGetCommits = jest.fn()
-        const mockResetCommits = jest.fn()
-        const mockSetError = jest.fn()
-        const commitContainer = {
-            repo: '', 
-            pageInfo: { 
-                hasNextPage: true
-            },
-            commits: [{
-                id: 1,
-                headline: 'headline one',
-                message: 'message one',
-                date: 'date one'
-            },{
-                id: 2,
-                headline: 'headline 2',
-                message: 'message 2',
-                date: 'date 2'
-            }] 
-        }
-
-        const wrapper = shallow(<Commit 
-            error={''} 
-            commitContainer={ commitContainer }
-            match={ match }
-            getCommits={mockGetCommits}
-            resetCommits={mockResetCommits}
-            setError={mockSetError} />)
-
-        expect(wrapper.find('CommitItem').length).toBe(2)
-
-        const searchInput = wrapper.find('Input.gh-search').first()
-
-        const event = {
-            target: {
-                value: 'headline 2'
+    cases('should show filtered commits when searched',
+        opts => {
+            const mockGetCommits = jest.fn()
+            const mockResetCommits = jest.fn()
+            const mockSetError = jest.fn()
+            const commitContainer = {
+                repo: '', 
+                pageInfo: { 
+                    hasNextPage: true
+                },
+                commits: [{
+                    id: 1,
+                    headline: 'headline one',
+                    message: 'message one',
+                    date: 'date one'
+                },{
+                    id: 2,
+                    headline: opts.headline,
+                    message: 'message 2',
+                    date: 'date 2'
+                }] 
             }
-        }
-
-        searchInput.simulate('change', event)
-        
-        const commitItems = wrapper.find('CommitItem') 
-        expect(commitItems.length).toBe(1)
-        expect(commitItems.first().prop('headline')).toEqual('headline 2');
-        expect(wrapper.state()).toEqual({ isSearching: true,
-            commits:[ 
-                { id: 2,
-                 headline: 'headline 2',
-                 message: 'message 2',
-                 date: 'date 2' 
-            } 
-        ]})
-    })
+    
+            const wrapper = shallow(<Commit 
+                error={''} 
+                commitContainer={ commitContainer }
+                match={ match }
+                getCommits={mockGetCommits}
+                resetCommits={mockResetCommits}
+                setError={mockSetError} />)
+    
+            expect(wrapper.find('CommitItem').length).toBe(2)
+    
+            const searchInput = wrapper.find('Input.gh-search').first()
+    
+            const event = {
+                target: {
+                    value: opts.search
+                }
+            }
+    
+            searchInput.simulate('change', event)
+            
+            const commitItems = wrapper.find('CommitItem')
+            
+            expect(commitItems.length).toBe(1)
+            expect(commitItems.first().prop('headline')).toEqual(opts.headline);
+            expect(wrapper.state()).toEqual({ isSearching: true,
+                commits:[{ 
+                    id: 2,
+                    headline: opts.headline,
+                    message: 'message 2',
+                    date: 'date 2' 
+                } 
+            ]})
+            }, {
+                'with exact match': { headline: 'headline 2', search: 'headline 2' },
+                'with capital case': { headline: 'headline 2', search: 'Headline 2' },
+                'with partial match': { headline: 'abcd efg xyz', search: 'efg' }
+            })
 
 })
