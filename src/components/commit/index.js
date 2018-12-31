@@ -67,7 +67,7 @@ export class Commit extends Component {
     }
 
     _onSearch = (event) => {
-        const searchTerm = event.target.value || 0
+        const searchTerm = event.target.value || ''
         this.setState({
             isSearching: searchTerm.length > 0,
             commits: this.props.commitContainer.commits
