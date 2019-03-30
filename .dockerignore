@@ -1,0 +1,17 @@
+.env
+.git
+.gitignore
+.vscode
+docker-compose.yml
+docker-compose.*.yml
+*/.vscode
+*/.gitignore
+*/.git
+*/.env
+*/.dockerignore
+src/**/.vs
+build
+node_modules
+*.yml
+*.md
+coverage
